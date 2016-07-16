@@ -22,7 +22,7 @@ This chunk sums the steps by date in table X, plots it, and gives mean and media
 
 ```r
 X <- tapply(activity$steps, activity$date, sum)
-hist(X, col="green")
+hist(X, col="green", main="Steps by Day", xlab="Steps")
 ```
 
 ![](PA1_template_files/figure-html/Daily_Steps-1.png)<!-- -->
@@ -43,7 +43,7 @@ This chunk computes the average number of steps per interval (in table y) and th
 ```r
 y <- aggregate(activity$steps, by=list(activity$interval), mean, na.rm=TRUE)
 colnames(y) <- c("interval","avg.steps")
-plot(y$interval,y$avg.steps, type="l", col="green")
+plot(y$interval,y$avg.steps, type="l", col="green", main="Avg Steps by Interval", xlab="interval",ylab="steps")
 ```
 
 ![](PA1_template_files/figure-html/Interval_Steps-1.png)<!-- -->
@@ -95,7 +95,7 @@ library(zoo)
 ```r
 activity$steps <- na.aggregate(activity$steps, by=activity$interval, FUN =  mean,na.rm=TRUE)
 z <- tapply(activity$steps, activity$date, sum)
-hist(z, col="green")
+hist(z, col="green", main="Avg Steps by Interval (with Imputed Values)", xlab="interval",ylab="steps")
 ```
 
 ![](PA1_template_files/figure-html/Imputing_Values-1.png)<!-- -->
@@ -122,7 +122,7 @@ activity$daygroup <- ifelse(activity$daytype == "Saturday", "weekend", ifelse(ac
 agg <- aggregate(activity$steps, by=list(activity$interval, activity$daygroup), mean)
 colnames(agg) <- c("interval","daygroup","avg.steps")
 library(lattice)
-xyplot(avg.steps ~ interval | daygroup, data=agg, type="l", layout = c(1,2), col="green")
+xyplot(avg.steps ~ interval | daygroup, data=agg, type="l", layout = c(1,2), col="green", main="Avg. Steps by Interval", xlab="interval", ylab="steps")
 ```
 
 ![](PA1_template_files/figure-html/Weekdays_Weekends-1.png)<!-- -->

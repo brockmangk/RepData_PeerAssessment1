@@ -25,7 +25,7 @@ This chunk sums the steps by date in table X, plots it, and gives mean and media
 
 ```{r Daily_Steps}
 X <- tapply(activity$steps, activity$date, sum)
-hist(X, col="green")
+hist(X, col="green", main="Steps by Day", xlab="Steps")
 mean_daily_steps <- mean(X,na.rm=TRUE)
 median_daily_steps <- median(X,na.rm=TRUE)
 ```
@@ -40,7 +40,7 @@ This chunk computes the average number of steps per interval (in table y) and th
 ```{r Interval_Steps}
 y <- aggregate(activity$steps, by=list(activity$interval), mean, na.rm=TRUE)
 colnames(y) <- c("interval","avg.steps")
-plot(y$interval,y$avg.steps, type="l", col="green")
+plot(y$interval,y$avg.steps, type="l", col="green", main="Avg Steps by Interval", xlab="interval",ylab="steps")
 z <- which.max(y$avg.steps)
 max.interval <- y$interval[z]
 max.steps <- y$avg.steps[z]
@@ -67,7 +67,7 @@ Below is a histogram of average steps per day with imputed values for NAs.
 library(zoo)
 activity$steps <- na.aggregate(activity$steps, by=activity$interval, FUN =  mean,na.rm=TRUE)
 z <- tapply(activity$steps, activity$date, sum)
-hist(z, col="green")
+hist(z, col="green", main="Avg Steps by Interval (with Imputed Values)", xlab="interval",ylab="steps")
 mean_daily_steps2 <- mean(z)
 median_daily_steps2 <- median(z)
 ```
@@ -88,5 +88,5 @@ activity$daygroup <- ifelse(activity$daytype == "Saturday", "weekend", ifelse(ac
 agg <- aggregate(activity$steps, by=list(activity$interval, activity$daygroup), mean)
 colnames(agg) <- c("interval","daygroup","avg.steps")
 library(lattice)
-xyplot(avg.steps ~ interval | daygroup, data=agg, type="l", layout = c(1,2), col="green")
+xyplot(avg.steps ~ interval | daygroup, data=agg, type="l", layout = c(1,2), col="green", main="Avg. Steps by Interval", xlab="interval", ylab="steps")
 ```
