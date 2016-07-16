@@ -23,7 +23,7 @@ WHAT IS MEAN TOTAL NUMBER OF STEPS TAKEN PER DAY?
 
 This chunk sums the steps by date in table X, plots it, and gives mean and median.
 
-```{r Daily_Steps}
+```{r Daily_Steps, fig.widt=8, fig.height=6}
 X <- tapply(activity$steps, activity$date, sum)
 hist(X, col="green", main="Steps by Day", xlab="Steps")
 mean_daily_steps <- mean(X,na.rm=TRUE)
